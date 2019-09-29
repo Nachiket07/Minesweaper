@@ -4,7 +4,8 @@ var isselected = false;
 var buttoncontrol = false;
 function floodfill() {
     //if (buttoncontrol)
-        document.getElementById("welcome").innerHTML="HI";
+    document.getElementById("welcome").innerHTML = "HI";
+    return false;
 }
 function creation() {
     var diff = document.getElementsByName("choice");
@@ -33,10 +34,11 @@ function creation() {
                 button.style.padding = "7px 7px";
                 button.addEventListener("click", floodfill);
                 
-                //change.appendChild(button);
+                change.appendChild(button);
             }
-            //change.appendChild(document.createElement("BR"));
+            change.appendChild(document.createElement("BR"));
         }
         //buttoncontrol = true;
+        return false;
     }
 }
