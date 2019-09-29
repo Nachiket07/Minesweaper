@@ -2,10 +2,12 @@
 var dim, mines;
 var isselected = false;
 var buttoncontrol = false;
+function createGame() {
+    document.getElementById("welcome").innerHTML = "Hey!";
+}
 function floodfill() {
-    //if (buttoncontrol)
-    document.getElementById("welcome").innerHTML = "HI";
-    return false;
+    //document.getElementById("welcome").innerHTML = this.id;
+    this.innerHTML = "4";
 }
 function creation() {
     var diff = document.getElementsByName("choice");
@@ -31,14 +33,19 @@ function creation() {
             for (j = 0; j < dim; j++) {
                 button = document.createElement("BUTTON");
                 button.id = i.toString()+" "+ j.toString();
-                button.style.padding = "7px 7px";
+                //button.style.padding = "7px 7px";
+                button.style.height = "25px";
+                button.style.width = "25px";
+                sbutton.innerHTML = "0";
+                button.style.fontSize = "10px";
+                button.style.color = "rbga(0,255,0,0)";
+                //button.style.with = "100%";
+                //button.style.height = "100%";
+                //button.style.color = "white";
                 button.addEventListener("click", floodfill);
-                
                 change.appendChild(button);
             }
             change.appendChild(document.createElement("BR"));
         }
-        //buttoncontrol = true;
-        return false;
     }
 }

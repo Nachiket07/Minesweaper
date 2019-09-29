@@ -16,6 +16,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    </form>
         <div id="root">
             <div style="text-align:center;height:60px" id="upper">
                 <div id="welcome" style="margin-top:25px">
@@ -33,6 +34,6 @@
                 </div>                 
             </div>
         </div>
-    </form>
+    
 </body>
 </html>
