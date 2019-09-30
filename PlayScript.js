@@ -22,6 +22,7 @@ function fill(i, j) {
     
     if (matrix[i][j] == 0) {
         matrix[i][j] = 9;
+        id.style.color = "#d1d1e0";
         if (i > 0 && matrix[i-1][j]!=9) {
             fill(i - 1, j);
         }
@@ -50,18 +51,19 @@ function floodfill() {
     if (matrix[i][j] != 10)
         fill(i, j);
     else {
-        document.getElementById(i + " " + j).style.color = "#ff0000";
-        document.getElementById(i + " " + j).style.backgroundColor = "#ff9999";
-        document.getElementById("welcome").innerHTML = "Sorry ! you lost the game."+"</br>"+"Relode page to play again";
         var l, m;
         for (l = 0; l < dim; l++) {
             for (m = 0; m < dim; m++) {
-                if (matrix[l][m] == 10 && l != i && m != j) {
+                if (matrix[l][m] == 10/* && l != i && m != j*/) {
                     document.getElementById(l + " " + m).style.color = "#ff0000";
                 }
                 document.getElementById(l + " " + m).disabled = true;
             }
         }
+        document.getElementById(i + " " + j).style.color = "#ff0000";
+        document.getElementById(i + " " + j).style.backgroundColor = "#ff9999";
+        document.getElementById("welcome").innerHTML = "Sorry ! you lost the game." + "</br>" + "Relode page to play again";
+
         //setTimeout(document.location.reload("https://localhost:44327/index.aspx"), 10000);
     }
 }
