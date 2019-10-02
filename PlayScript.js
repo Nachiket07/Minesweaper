@@ -4,26 +4,25 @@
 9 is for disabled/visited.
 */
 
-
 // try inhert property for button text color.
 var ch = [[10, 10], [14, 40], [20, 99]];
 var dim, mines;
 var matrix;
-var booleanMatrix;
+var wincount;
 var isselected = false; // for checking if user has given input befor submit.
-function createGame() {
-    document.getElementById("welcome").innerHTML = "Hey!";
+function winloose() {
+    
 }
 function fill(i, j) {
     var id = document.getElementById(i + " " + j);
     id.style.color ="#0000ff" /*"#ff0000"*/;
     id.style.backgroundColor = "#d1d1e0";
     id.disabled = true;
-    
+    wincount += 1;
     if (matrix[i][j] == 0) {
         matrix[i][j] = 9;
         id.style.color = "#d1d1e0";
-        if (i > 0 && matrix[i-1][j]!=9) {
+        /*if (i > 0 && matrix[i-1][j]!=9) {
             fill(i - 1, j);
         }
         if (i < dim - 1 && matrix[i+1][j]!=9) {
@@ -34,6 +33,36 @@ function fill(i, j) {
         }
         if (j < dim - 1 && matrix[i][j+1] != 9) {
             fill(i, j + 1);
+        }*/
+        if (matrix[i][j] != 10) {
+            if (j > 0) {
+                if (i > 0 && matrix[i - 1][j - 1] != 9) {
+                    fill(i - 1 , j - 1);
+                }
+                if (matrix[i][j - 1] != 9) {
+                    fill(i , j - 1);
+                }
+                if (i < dim - 1 && matrix[i + 1][j - 1] != 9) {
+                    fill(i + 1 , j - 1);
+                }
+            }
+            if (j < dim - 1) {
+                if (i > 0 && matrix[i - 1][j + 1] != 9) {
+                    fill(i - 1 , j + 1);
+                }
+                if (matrix[i][j + 1] != 9) {
+                    fill(i , j + 1);
+                }
+                if (i < dim - 1 && matrix[i + 1][j + 1] != 9) {
+                    fill(i + 1, j + 1);
+                }
+            }
+            if (i > 0 && matrix[i - 1][j] != 9) {
+                fill(i - 1, j);
+            }
+            if (i < dim - 1 && matrix[i + 1][j] != 9) {
+                fill(i + 1, j);
+            }
         }
     }
     else {
@@ -63,13 +92,23 @@ function floodfill() {
         document.getElementById(i + " " + j).style.color = "#ff0000";
         document.getElementById(i + " " + j).style.backgroundColor = "#ff9999";
         document.getElementById("welcome").innerHTML = "Sorry ! you lost the game." + "</br>" + "Relode page to play again";
-
+        //document.getElementById("welcome").innerHTML = wincount;
         //setTimeout(document.location.reload("https://localhost:44327/index.aspx"), 10000);
     }
+    if (wincount == dim * dim - mines) {
+        document.getElementById("welcome").innerHTML = "Congratulations ! you win !" + "</br>" + "Relode page to play again";
+        for (i = 0; i < dim; i++) {
+            for (j = 0; j < dim; j++) {
+                document.getElementById(i + " " + j).disabled = true;
+            }
+        }
+    }
+    //document.getElementById("welcome").innerHTML = wincount;
 }
 function creation() {
     // this creates required button grid and sets events for buttons.
     // this also creates required matrix for game.
+    wincount = 0;
     var diff = document.getElementsByName("choice");
     var change = document.getElementById("change");
     var button;
@@ -89,6 +128,7 @@ function creation() {
     else {
         change.innerHTML = "";
         buttonS.innerHTML = "";
+        change.style.userSelect = "none"; // for chrome.
         change.style.lineHeight = "0%";
         for (i = 0; i < dim; i++) {
             for (j = 0; j < dim; j++) {
@@ -96,11 +136,13 @@ function creation() {
                 button.id = i.toString()+" "+ j.toString();
                 button.style.height = "25px";
                 button.style.width = "25px";
+                //button.style.minHeight = "25px";
+                //button.style.minWidth = "25px";
                 button.innerHTML = "0";
                 button.style.fontSize = "15px";
-                button.style.color = "#666699"; // from w3school color picker #f0f0f5
-                button.style.backgroundColor = "#666699";
-                button.addEventListener("click", floodfill);
+                button.style.color = "#cce6ff"; // from w3school color picker #f0f0f5
+                button.style.backgroundColor = "#cce6ff";
+                button.addEventListener("click",   floodfill );
                 change.appendChild(button);
             }
             change.appendChild(document.createElement("BR"));
