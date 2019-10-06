@@ -74,28 +74,31 @@ function floodfill() {
     var splitId = (this.id).split(" ");
     var i = parseInt(splitId[0]);
     var j = parseInt(splitId[1]);
-    //document.getElementById("welcome").innerHTML = typeof(event.button);
-    if (parseInt(event.button)) {
+    document.getElementById("welcome").innerHTML = (event.button);
+    if (parseInt(event.button) == 0 && "F".localeCompare(this.innerHTML) == 0) {
+        return true;
+    }
+    if (parseInt(event.button) == 2) {
         //event.preventDefault();
-        if ("F".localeCompare(this.innerHTML)) {
-            this.innerHTML = matrix[i][j];
+        //alert("Hola");
+        if ("F".localeCompare(this.innerHTML) == 0) {
+            //alert("tola");
+            if (matrix[i][j] == 10) {
+                this.innerHTML = "M";
+            }
+            else {
+                this.innerHTML = matrix[i][j];
+            }
             this.style.color = "#cce6ff";
             event.stopPropagation();
-            return;
+            return false; //true;
         }
         document.getElementById("welcome").innerHTML = event.button;
         this.innerHTML = "F";
-        this.style.color = "#006600";// dark green.
+        this.style.color = "#ff00f2";
         event.stopPropagation();
-        return;
+        return false;
     }
-    //var splitId = (this.id).split(" ");   // this works.
-    /*this.innerHTML = splitId[0];
-    this.style.color = "#00b33c";
-    this.style.backgroundColor = "#f0f0f5";
-    this.disabled = true;*/
-    //var i = parseInt(splitId[0]);
-    //var j = parseInt(splitId[1]);
     if (matrix[i][j] != 10)
         fill(i, j);
     else {
@@ -163,7 +166,7 @@ function creation() {
                 button.style.backgroundColor = "#cce6ff";
                 button.addEventListener("click", floodfill);
                 //button.addEventListener("contextmenu", function (e) { e.preventDefault(); },true);
-                button.addEventListener("contextmenu", /*function () { floodfill(); event.stopPropagation() }*/floodfill, false);
+                button.addEventListener("contextmenu",floodfill, false);
                 change.appendChild(button);
             }
             change.appendChild(document.createElement("BR"));
